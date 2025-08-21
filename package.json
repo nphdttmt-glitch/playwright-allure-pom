@@ -1,0 +1,34 @@
+{
+  "name": "playwright-allure-pom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:chrome": "npx playwright test --project=chromium",
+    "test:firefox": "npx playwright test --project=firefox",
+    "test:webkit": "npx playwright test --project=webkit",
+    "test:dev-chrome": "ENV=dev npx playwright test --project=chromium",
+    "test:dev-firefox": "ENV=dev npx playwright test --project=firefox",
+    "test:dev-webkit": "ENV=dev npx playwright test --project=webkit",
+    "test:login": "npx playwright test tests/login.test.ts",
+    "report:generate": "npx allure generate ./allure-results --clean -o ./allure-report",
+    "report:open": "npx allure open ./allure-report",
+    "report:clean": "rimraf allure-results allure-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.54.2",
+    "allure-commandline": "^2.34.1",
+    "allure-playwright": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.1"
+  }
+}
