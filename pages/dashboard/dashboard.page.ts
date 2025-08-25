@@ -62,12 +62,14 @@ export class DashboardPage extends BasePage {
         });
     }
 
-    async getProductPrices(): Promise<(string | null)[]> {
+    async getProductPrices(): Promise<(number | null)[]> {
         return await step("Lấy danh sách giá sản phẩm", async () => {
             const productPrices = [];
             const prices = this.page.locator('//div[normalize-space(@class) = "inventory_item_price"]');
             for (let i = 0; i < await prices.count(); i++) {
-                productPrices.push(await prices.nth(i).textContent());
+                const priceStr = await prices.nth(i).textContent();
+                const priceNum = priceStr ? parseFloat(priceStr.slice(1)) : null;
+                productPrices.push(priceNum);
             }
             return productPrices;
         });
@@ -106,7 +108,7 @@ export class DashboardPage extends BasePage {
     async assertProductsSortedByPrice(order: "asc" | "desc") {
         const productPricesWithNull = await this.getProductPrices();
         const productPrices = productPricesWithNull.filter(
-            (price): price is string => price !== null
+            (price): price is number => price !== null
         );
 
         await step(`Xác minh sản phẩm đã được sắp xếp theo giá (${order})`, async () => {

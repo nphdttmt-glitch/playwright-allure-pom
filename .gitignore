@@ -10,3 +10,7 @@ playwright-report/
 blob-report/
 .playwright/
 .env
+
+# Allure-report
+allure-report/
+allure-results/
